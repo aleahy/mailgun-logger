@@ -1,0 +1,41 @@
+{
+    "name": "aleahy/mailgun-logger",
+    "description": "A package to receive webhooks from mailgun and log the events",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Leahy",
+            "email": "alex@languagetub.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.4|^8.0",
+        "laravel/framework": "^7.0|^8.0",
+        "spatie/laravel-webhook-client": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aleahy\\MailgunLogger\\": "src/",
+            "Aleahy\\MailgunLogger\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aleahy\\MailgunLogger\\MailgunLoggerServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.17",
+        "nunomaduro/collision": "^5.3"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ]
+    }
+}
