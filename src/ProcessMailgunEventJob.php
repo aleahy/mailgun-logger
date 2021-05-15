@@ -11,7 +11,6 @@ class ProcessMailgunEventJob extends ProcessWebhookJob
     public function handle()
     {
         if (!isset($this->webhookCall->payload['event-data']['event']) || $this->webhookCall->payload['event-data']['event'] === '') {
-            dd(get_class($this->webhookCall));
             throw WebhookFailed::missingEvent($this->webhookCall);
         }
 

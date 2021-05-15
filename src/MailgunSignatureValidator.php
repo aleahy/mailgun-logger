@@ -23,9 +23,11 @@ class MailgunSignatureValidator implements SignatureValidator
     }
 
     protected function buildSignature($signatureArray, WebhookConfig $config) {
-        $timestamp = $signatureArray['timestamp'];
-        $token = $signatureArray['token'];
-        return hash_hmac('sha256', $timestamp . $token, $config->signingSecret);
+        return hash_hmac(
+            'sha256',
+            $signatureArray['timestamp'] . $signatureArray['token'],
+            $config->signingSecret
+        );
     }
     protected function isOldWebhook($signature):bool
     {

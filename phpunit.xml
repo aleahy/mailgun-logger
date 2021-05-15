@@ -6,6 +6,11 @@
          convertWarningsToExceptions="true"
          processIsolation="true"
          stopOnFailure="false">
+    <coverage>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="MailgunLogger">
             <directory suffix="Test.php">tests</directory>
