@@ -75,20 +75,20 @@ protected $except = [
 ## Usage
 
 ### Responding to Webhooks
-Create a laravel job class that extends `Spatie\WebhookClient\ProcessWebhookJob` 
+Create a laravel job class that extends `Spatie\WebhookClient\Jobs\ProcessWebhookJob` 
 to be run when the webhook is received.
 
 As the parent class receives the webhook in the constructor,
 the payload can be access by `$this->webhookCall->payload`.
 
-If you decide not to extend `Spatie\WebhookClient\ProcessWebhookJob`,
+If you decide not to extend `Spatie\WebhookClient\Jobs\ProcessWebhookJob`,
 then make sure it can receive the webhook in the constructor.
 It is also important that the job is queueable so that Mailgun can receive a response immediately.
 
 An example is shown below:
 
 ```
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
 class HandleFailedJob extends ProcessWebhookJob
 {
@@ -124,7 +124,47 @@ $mimeMessage = MailgunService::getMime($url);
 ```
 This also returns an associative array which contains the mime data under the key `body-mime`.
 
+## Upgrading from 0.3 to 1
+Version 1.0 requires PHP 8.0 and also has upgraded `Spatie\WebhookClient` to version 3.1.7.\
+The migrations for this package has changed, so in order to upgrade, you must add the following migration:
+```php
+<?php
 
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddColumnsToWebhookCalls extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
+    {
+        Schema::table('webhook_calls', function (Blueprint $table) {
+            $table->string('url')->nullable();
+            $table->json('headers')->nullable();
+            $table->json('payload')->change();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::table('webhook_calls', function (Blueprint $table) {
+            $table->dropColumn('url');
+            $table->dropColumn('headers');
+            $table->text('payload')->change();
+        });
+    }
+}
+```
 ## Credits
 Much of this package was influenced by [binary-cats/laravel-mailgun-webhooks](https://github.com/binary-cats/laravel-mailgun-webhooks).
 

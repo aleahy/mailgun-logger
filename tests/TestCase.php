@@ -3,7 +3,6 @@
 
 namespace Aleahy\MailgunLogger\Test;
 
-use BinaryCats\MailgunWebhooks\MailgunWebhooksServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -36,8 +35,8 @@ class TestCase extends OrchestraTestCase
 
     protected function setUpDatabase()
     {
-        include_once __DIR__ . '/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
-        (new CreateWebhookCallsTable())->up();
+        $migration = include_once __DIR__ . '/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
+        $migration->up();
     }
 
     protected function defineRoutes($router)

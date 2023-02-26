@@ -23,7 +23,8 @@ class ProcessMailgunEventTest extends TestCase
             'name' => 'mailgun',
             'payload' => [
                 'event-data' => $eventData
-            ]
+            ],
+            'url' => 'https://test.com',
         ]);
         $job = (new ProcessMailgunEventJob($webhookCall));
         $job->handle();
@@ -42,7 +43,8 @@ class ProcessMailgunEventTest extends TestCase
             'name' => 'mailgun',
             'payload' => [
                 'event-data' => []
-            ]
+            ],
+            'url' => 'https://test.com',
         ]);
 
         $job = (new ProcessMailgunEventJob($webhookCall));
@@ -64,7 +66,8 @@ class ProcessMailgunEventTest extends TestCase
             'name' => 'mailgun',
             'payload' => [
                 'event-data' => $eventData
-            ]
+            ],
+            'url' => 'https://test.com',
         ]);
         $job = (new ProcessMailgunEventJob($webhookCall));
         $job->handle();

@@ -4,7 +4,7 @@
 namespace Aleahy\MailgunLogger;
 
 use Aleahy\MailgunLogger\Exceptions\WebhookFailed;
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
 class ProcessMailgunEventJob extends ProcessWebhookJob
 {

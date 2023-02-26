@@ -4,7 +4,7 @@
 namespace Aleahy\MailgunLogger\Test;
 
 
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
 class DeliveredJob extends ProcessWebhookJob
 {
